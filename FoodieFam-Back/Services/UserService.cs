@@ -1,5 +1,6 @@
 ﻿using FoodieFam_Back.DTOs;
 using FoodieFam_Back.Models;
+using FoodieFam_Back.Repository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,29 +9,40 @@ namespace FoodieFam_Back.Services
     public class UserService : ICommonService<UserDto, UserInsertDto, UserPutDto>
     {
         private FoodieFamContext _context;
+        private IRepository<User> _userRepository;
 
-        public UserService(FoodieFamContext context)
+        public UserService(
+            FoodieFamContext context,
+            IRepository<User> userRepository
+            )
         {
             _context = context;
+            _userRepository = userRepository;
         }
 
-        public async Task<IEnumerable<UserDto>> Get() =>
-             await _context.Users.Select(user => new UserDto
-             {
-                 UserId = user.UserId,
-                 Name = user.Name,
-                 LastName = user.LastName,
-                 Email = user.Email,
-                 Password = user.Password,
-                 Role = user.Role,
-                 Status = user.Status,
-                 IsVerified = user.IsVerified,
-                 DateCreated = user.DateCreated
-             }).ToListAsync();
+        public async Task<IEnumerable<UserDto>> Get()
+        {
+            var users = await _userRepository.Get();
+
+            return users.Select(user => new UserDto
+            {
+                UserId = user.UserId,
+                Name = user.Name,
+                LastName = user.LastName,
+                Email = user.Email,
+                Password = user.Password,
+                Role = user.Role,
+                Status = user.Status,
+                IsVerified = user.IsVerified,
+                DateCreated = user.DateCreated
+            });
+        }
+
+             
 
         public async Task<UserDto> GetById(Guid id)
         {
-            var user = await _context.Users.FindAsync(id);
+            var user = await _userRepository.GetById(id);
             if (user != null)
             {
                 var userDto = new UserDto
@@ -61,10 +73,10 @@ namespace FoodieFam_Back.Services
                 DateCreated = DateTime.UtcNow
             };
             //Menciona que habra una insercion en la DB
-            await _context.Users.AddAsync(user);
+            await _userRepository.Add(user);
 
             //Se guardan los cambios en la DB
-            await _context.SaveChangesAsync();
+            await _userRepository.Save();
 
             var userDto = new UserDto
             {
@@ -83,7 +95,7 @@ namespace FoodieFam_Back.Services
 
         public async Task<UserDto> Update(Guid id, UserPutDto userPutDto)
         {
-            var user = await _context.Users.FindAsync(id);
+            var user = await _userRepository.GetById(id);
             if (user != null)
             {
 
@@ -91,7 +103,8 @@ namespace FoodieFam_Back.Services
                 user.LastName = userPutDto.LastName;
                 user.Email = userPutDto.Email;
                 user.Password = userPutDto.Password;
-                _context.SaveChanges();
+                _userRepository.Update(user);
+                await _userRepository.Save();
 
                 var userDto = new UserDto
                 {
@@ -112,7 +125,7 @@ namespace FoodieFam_Back.Services
 
         public async Task<UserDto> Delete(Guid id)
         {
-            var user = await _context.Users.FindAsync(id);
+            var user = await _userRepository.GetById(id);
             if(user!= null)
             {
                 var userDto = new UserDto
@@ -127,8 +140,8 @@ namespace FoodieFam_Back.Services
                     IsVerified = user.IsVerified,
                     DateCreated = user.DateCreated
                 };
-                _context.Users.Remove(user);
-                await _context.SaveChangesAsync();
+                _userRepository.Delete(user);
+                await _userRepository.Save();
 
                 return userDto;
             }

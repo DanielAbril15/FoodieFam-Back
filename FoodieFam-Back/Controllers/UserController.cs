@@ -1,9 +1,6 @@
 ﻿using FoodieFam_Back.DTOs;
-using FoodieFam_Back.Models;
 using FoodieFam_Back.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace FoodieFam_Back.Controllers
 {
