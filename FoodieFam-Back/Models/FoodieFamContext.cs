@@ -93,8 +93,8 @@ namespace FoodieFam_Back.Models
             modelBuilder.Entity<Instruction>(instruction =>
             {
                 instruction.HasKey(p => p.InstructionId);
-                instruction.Property(p => p.Description);
-                instruction.Property(p => p.Step);
+                instruction.Property(p => p.Description).IsRequired();
+                instruction.Property(p => p.Step).IsRequired();
                 instruction.HasOne(p => p.Recipe).WithMany(p => p.Instructions).HasForeignKey(p => p.RecipeId);
             });
 
