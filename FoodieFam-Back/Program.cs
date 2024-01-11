@@ -1,3 +1,4 @@
+using FoodieFam_Back.DTOs;
 using FoodieFam_Back.Models;
 using FoodieFam_Back.Services;
 using Microsoft.EntityFrameworkCore;
@@ -10,8 +11,7 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddScoped<IUserService,UserService>();
-
+builder.Services.AddKeyedScoped<ICommonService<UserDto,UserInsertDto,UserPutDto>,UserService>("userService");
 
 //conection with sql server
 builder.Services.AddDbContext<FoodieFamContext>(options =>

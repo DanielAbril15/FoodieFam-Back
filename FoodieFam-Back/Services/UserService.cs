@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FoodieFam_Back.Services
 {
-    public class UserService : IUserService
+    public class UserService : ICommonService<UserDto, UserInsertDto, UserPutDto>
     {
         private FoodieFamContext _context;
 
@@ -14,7 +14,7 @@ namespace FoodieFam_Back.Services
             _context = context;
         }
 
-        public async Task<IEnumerable<UserDto>> GetUsers() =>
+        public async Task<IEnumerable<UserDto>> Get() =>
              await _context.Users.Select(user => new UserDto
              {
                  UserId = user.UserId,
@@ -28,7 +28,7 @@ namespace FoodieFam_Back.Services
                  DateCreated = user.DateCreated
              }).ToListAsync();
 
-        public async Task<UserDto> GetUserById(Guid id)
+        public async Task<UserDto> GetById(Guid id)
         {
             var user = await _context.Users.FindAsync(id);
             if (user != null)
@@ -50,7 +50,7 @@ namespace FoodieFam_Back.Services
             return null;
         }
 
-        public async Task<UserDto> AddUser(UserInsertDto userInsertDto)
+        public async Task<UserDto> Add(UserInsertDto userInsertDto)
         {
             var user = new User
             {
@@ -81,7 +81,7 @@ namespace FoodieFam_Back.Services
             return userDto;
         }
 
-        public async Task<UserDto> UpdateUser(Guid id, UserPutDto userPutDto)
+        public async Task<UserDto> Update(Guid id, UserPutDto userPutDto)
         {
             var user = await _context.Users.FindAsync(id);
             if (user != null)
@@ -110,7 +110,7 @@ namespace FoodieFam_Back.Services
             return null;
         }
 
-        public async Task<UserDto> DeleteUser(Guid id)
+        public async Task<UserDto> Delete(Guid id)
         {
             var user = await _context.Users.FindAsync(id);
             if(user!= null)
