@@ -6,16 +6,18 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddKeyedScoped<ICommonService<UserDto, UserInsertDto, UserPutDto>, UserService>("userService");
+builder.Services.AddKeyedScoped<ICommonGuidService<UserDto, UserInsertDto, UserPutDto>, UserService>("userService");
+builder.Services.AddKeyedScoped<ICommonIntService<IngredientTypeDto, IngredientTypeInsertDto, IngredientTypePutDto>, IngredientTypeService>("ingredientTypeService");
 
 //Repository
-builder.Services.AddScoped<IRepository<User>, UserRepository>();
+builder.Services.AddScoped<IRepositoryGuid<User>, UserRepository>();
+builder.Services.AddScoped<IRepositoryInt<IngredientType>, IngredientTypeRepository>();
+//Services
 
 
 //conection with sql server

@@ -2,7 +2,7 @@
 
 namespace FoodieFam_Back.Services
 {
-    public interface ICommonService<T,TI,TU>
+    public interface ICommonGuidService<T,TI,TU>
     {
         Task<IEnumerable<T>> Get();
         Task<T> GetById(Guid id);

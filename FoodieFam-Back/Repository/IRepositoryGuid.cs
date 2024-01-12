@@ -1,6 +1,6 @@
 ﻿namespace FoodieFam_Back.Repository
 {
-    public interface IRepository<TEntity>
+    public interface IRepositoryGuid<TEntity>
     {
         Task<IEnumerable<TEntity>> Get();
         Task<TEntity> GetById(Guid id);

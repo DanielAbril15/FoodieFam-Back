@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FoodieFam_Back.Repository
 {
-    public class UserRepository : IRepository<User>
+    public class UserRepository : IRepositoryGuid<User>
     {
         private FoodieFamContext _context;
 
@@ -34,9 +34,6 @@ namespace FoodieFam_Back.Repository
 
         public async Task Save() =>
             await _context.SaveChangesAsync();
-
-
-
 
     }
 }

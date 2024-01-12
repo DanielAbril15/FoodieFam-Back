@@ -6,17 +6,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FoodieFam_Back.Services
 {
-    public class UserService : ICommonService<UserDto, UserInsertDto, UserPutDto>
+    public class UserService : ICommonGuidService<UserDto, UserInsertDto, UserPutDto>
     {
-        private FoodieFamContext _context;
-        private IRepository<User> _userRepository;
+       
+        private IRepositoryGuid<User> _userRepository;
 
         public UserService(
-            FoodieFamContext context,
-            IRepository<User> userRepository
+            IRepositoryGuid<User> userRepository
             )
         {
-            _context = context;
             _userRepository = userRepository;
         }
 

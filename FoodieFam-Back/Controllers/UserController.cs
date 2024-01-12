@@ -8,9 +8,9 @@ namespace FoodieFam_Back.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private ICommonService<UserDto, UserInsertDto, UserPutDto> _userService;
+        private ICommonGuidService<UserDto, UserInsertDto, UserPutDto> _userService;
         public UserController(
-          [FromKeyedServices("userService")] ICommonService<UserDto, UserInsertDto, UserPutDto> userService)
+          [FromKeyedServices("userService")] ICommonGuidService<UserDto, UserInsertDto, UserPutDto> userService)
         {
             _userService = userService;
         }
