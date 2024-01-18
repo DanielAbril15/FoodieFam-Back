@@ -4,6 +4,7 @@ using FoodieFam_Back.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FoodieFam_Back.Migrations
 {
     [DbContext(typeof(FoodieFamContext))]
-    partial class FoodieFamContextModelSnapshot : ModelSnapshot
+    [Migration("20240116143812_addIngredientTypes")]
+    partial class addIngredientTypes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -239,7 +242,7 @@ namespace FoodieFam_Back.Migrations
 
                     b.HasIndex("IngredientId");
 
-                    b.ToTable("UserIngredients");
+                    b.ToTable("UserIngredient");
                 });
 
             modelBuilder.Entity("FoodieFam_Back.Models.UserRecipe", b =>

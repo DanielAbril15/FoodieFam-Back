@@ -10,6 +10,7 @@ namespace FoodieFam_Back.Models
         public DbSet<IngredientType> IngredientTypes { get; set; }
         public DbSet<Instruction> Instructions { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<UserIngredient> UserIngredients { get; set; }
 
 
         public FoodieFamContext(DbContextOptions<FoodieFamContext> options) : base(options) { }

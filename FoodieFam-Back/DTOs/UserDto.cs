@@ -1,4 +1,6 @@
-﻿namespace FoodieFam_Back.DTOs
+﻿using FoodieFam_Back.Models;
+
+namespace FoodieFam_Back.DTOs
 {
     public class UserDto
     {
@@ -11,6 +13,9 @@
         public bool Status { get; set; }
         public bool IsVerified { get; set; }
         public DateTime DateCreated { get; set; }
+        public ICollection<Recipe> Recipes { get; set; }
+        public ICollection<UserIngredient> UserIngredients { get; set; }
+        public ICollection<UserRecipe> UserRecipes { get; set; }
 
     }
 }
