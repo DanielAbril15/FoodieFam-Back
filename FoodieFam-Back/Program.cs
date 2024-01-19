@@ -14,10 +14,12 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddKeyedScoped<ICommonGuidService<UserDto, UserInsertDto, UserPutDto>, UserService>("userService");
 builder.Services.AddKeyedScoped<ICommonIntService<IngredientTypeDto, IngredientTypeInsertDto, IngredientTypePutDto>, IngredientTypeService>("ingredientTypeService");
 builder.Services.AddScoped<IngredientService>();
+builder.Services.AddScoped<UserIngredientService>();
 //Repository
 builder.Services.AddScoped<IRepositoryGuid<User>, UserRepository>();
 builder.Services.AddScoped<IRepositoryInt<IngredientType>, IngredientTypeRepository>();
 builder.Services.AddScoped<IngredientRepository>();
+builder.Services.AddScoped<UserIngredientRepository>();
 //Services
 
 

@@ -87,17 +87,17 @@ namespace FoodieFam_Back.Services
         {
             var ingredientType = await _ingredientTypeRepository.GetById(id);
 
-            if(ingredientType != null)
+            if (ingredientType != null)
             {
                 var ingredientTypeDto = new IngredientTypeDto
                 {
                     IngredientTypeId = ingredientType.IngredientTypeId,
                     Name = ingredientType.Name
                 };
-                
+
                 _ingredientTypeRepository.Delete(ingredientType);
                 await _ingredientTypeRepository.Save();
-                
+
                 return ingredientTypeDto;
             }
             return null;
