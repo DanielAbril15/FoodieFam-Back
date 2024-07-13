@@ -14,6 +14,8 @@ namespace FoodieFam_Back.Repository
         public async Task<IEnumerable<User>> Get() =>
             await _context.Users.ToListAsync();
 
+        public async Task<bool> UserExistsByEmailAsync(string email) =>
+            await _context.Users.AnyAsync(u => u.Email == email);
 
         public async Task<User> GetById(Guid id) =>
             await _context.Users.FindAsync(id);

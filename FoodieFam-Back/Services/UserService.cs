@@ -1,8 +1,10 @@
 ﻿using FoodieFam_Back.DTOs;
 using FoodieFam_Back.Models;
 using FoodieFam_Back.Repository;
+using System.Security.Cryptography;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Text;
 
 namespace FoodieFam_Back.Services
 {
@@ -10,6 +12,19 @@ namespace FoodieFam_Back.Services
     {
        
         private IRepositoryGuid<User> _userRepository;
+
+        //Funcion que encripta la password
+        private string encryptPass(string pass)
+        {
+            SHA256 sha256 = SHA256Managed.Create();
+            ASCIIEncoding encoding = new ASCIIEncoding();
+            byte[] stream = null;
+            StringBuilder sb = new StringBuilder();
+            stream = sha256.ComputeHash(encoding.GetBytes(pass));
+            for (int i = 0; i < stream.Length; i++) sb.AppendFormat("{0:x2}", stream[i]);
+            
+            return sb.ToString();
+        }
 
         public UserService(
             IRepositoryGuid<User> userRepository
@@ -67,9 +82,21 @@ namespace FoodieFam_Back.Services
                 Name = userInsertDto.Name,
                 LastName = userInsertDto.LastName,
                 Email = userInsertDto.Email,
-                Password = userInsertDto.Password,
+                Password = encryptPass(userInsertDto.Password),
                 DateCreated = DateTime.UtcNow
             };
+            Console.WriteLine(userInsertDto.Email);
+            Console.WriteLine(user.Email);
+            var userExist = await _userRepository.UserExistsByEmailAsync(userInsertDto.Email);
+            Console.WriteLine(userExist);
+
+            //valida si el usuario ya fue creado por medio del email pues este debe ser unico
+            if (userExist ) {
+                Console.WriteLine("Entro");
+                return null;
+            }
+            else
+            {
             //Menciona que habra una insercion en la DB
             await _userRepository.Add(user);
 
@@ -89,6 +116,7 @@ namespace FoodieFam_Back.Services
                 DateCreated = user.DateCreated
             };
             return userDto;
+            }
         }
 
         public async Task<UserDto> Update(Guid id, UserPutDto userPutDto)

@@ -1,4 +1,5 @@
 ﻿using FoodieFam_Back.DTOs;
+using FoodieFam_Back.Repository;
 using FoodieFam_Back.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -34,8 +35,17 @@ namespace FoodieFam_Back.Controllers
         public async Task<ActionResult<UserDto>> AddUser(UserInsertDto userInsertDto)
         {
             var userDto = await _userService.Add(userInsertDto);
+            
+            if (userDto != null)
+            {
 
-            return CreatedAtAction(nameof(GetUserById), new { id = userDto.UserId }, userDto);
+                return CreatedAtAction(nameof(GetUserById), new { id = userDto.UserId }, userDto);
+            }
+            else
+            {   
+                
+                return BadRequest( "El correo electrónico ya está registrado.");
+            }
         }
 
 
