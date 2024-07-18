@@ -1,4 +1,4 @@
-﻿using FoodieFam_Back.DTOs;
+﻿using FoodieFam_Back.DTOs.UserDto;
 using FoodieFam_Back.Repository;
 using FoodieFam_Back.Services;
 using Microsoft.AspNetCore.Mvc;

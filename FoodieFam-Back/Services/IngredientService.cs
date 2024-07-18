@@ -1,4 +1,5 @@
-﻿using FoodieFam_Back.DTOs;
+﻿using FoodieFam_Back.DTOs.IngredientDto;
+using FoodieFam_Back.DTOs.UserIngredientDto;
 using FoodieFam_Back.Models;
 using FoodieFam_Back.Repository;
 

@@ -1,6 +1,6 @@
 ﻿using FoodieFam_Back.Models;
 
-namespace FoodieFam_Back.DTOs
+namespace FoodieFam_Back.DTOs.UserDto
 {
     public class UserDto
     {

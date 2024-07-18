@@ -1,4 +1,4 @@
-﻿namespace FoodieFam_Back.DTOs
+﻿namespace FoodieFam_Back.DTOs.IngredientTypeDto
 {
     public class IngredientTypeInsertDto
     {

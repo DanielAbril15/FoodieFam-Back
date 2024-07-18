@@ -1,4 +1,4 @@
-﻿using FoodieFam_Back.DTOs;
+﻿using FoodieFam_Back.DTOs.IngredientTypeDto;
 using FoodieFam_Back.Models;
 using FoodieFam_Back.Repository;
 using Microsoft.AspNetCore.Mvc;

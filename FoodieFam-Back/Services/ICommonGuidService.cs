@@ -6,8 +6,8 @@ namespace FoodieFam_Back.Services
     {
         Task<IEnumerable<T>> Get();
         Task<T> GetById(Guid id);
-        Task<T> Add(TI userInsertDto);
-        Task<T> Update(Guid id, TU userPutDto);
+        Task<T> Add(TI any);
+        Task<T> Update(Guid id, TU any);
         Task<T> Delete(Guid id);
     }
 }

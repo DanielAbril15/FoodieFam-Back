@@ -1,10 +1,10 @@
-﻿using FoodieFam_Back.DTOs;
-using FoodieFam_Back.Models;
+﻿using FoodieFam_Back.Models;
 using FoodieFam_Back.Repository;
 using System.Security.Cryptography;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Text;
+using FoodieFam_Back.DTOs.UserDto;
 
 namespace FoodieFam_Back.Services
 {
@@ -92,7 +92,6 @@ namespace FoodieFam_Back.Services
 
             //valida si el usuario ya fue creado por medio del email pues este debe ser unico
             if (userExist ) {
-                Console.WriteLine("Entro");
                 return null;
             }
             else

@@ -4,8 +4,8 @@
     {
         Task<IEnumerable<T>> Get();
         Task<T> GetById(int id);
-        Task<T> Add(TI ingredientTypeInsertDto);
-        Task<T> Update(int id, TU ingredientTypePutDto);
+        Task<T> Add(TI any);
+        Task<T> Update(int id, TU any);
         Task<T> Delete(int id);
     }
 }

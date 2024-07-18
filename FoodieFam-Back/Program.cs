@@ -1,4 +1,5 @@
-using FoodieFam_Back.DTOs;
+using FoodieFam_Back.DTOs.IngredientTypeDto;
+using FoodieFam_Back.DTOs.UserDto;
 using FoodieFam_Back.Models;
 using FoodieFam_Back.Repository;
 using FoodieFam_Back.Services;
@@ -15,12 +16,13 @@ builder.Services.AddKeyedScoped<ICommonGuidService<UserDto, UserInsertDto, UserP
 builder.Services.AddKeyedScoped<ICommonIntService<IngredientTypeDto, IngredientTypeInsertDto, IngredientTypePutDto>, IngredientTypeService>("ingredientTypeService");
 builder.Services.AddScoped<IngredientService>();
 builder.Services.AddScoped<UserIngredientService>();
+builder.Services.AddScoped<CategoryService>();
 //Repository
 builder.Services.AddScoped<IRepositoryGuid<User>, UserRepository>();
 builder.Services.AddScoped<IRepositoryInt<IngredientType>, IngredientTypeRepository>();
 builder.Services.AddScoped<IngredientRepository>();
 builder.Services.AddScoped<UserIngredientRepository>();
-//Services
+builder.Services.AddScoped<CategoryRepository>();
 
 
 //conection with sql server
