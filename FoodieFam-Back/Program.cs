@@ -17,12 +17,15 @@ builder.Services.AddKeyedScoped<ICommonIntService<IngredientTypeDto, IngredientT
 builder.Services.AddScoped<IngredientService>();
 builder.Services.AddScoped<UserIngredientService>();
 builder.Services.AddScoped<CategoryService>();
+builder.Services.AddScoped<RecipeService>();
+
 //Repository
 builder.Services.AddScoped<IRepositoryGuid<User>, UserRepository>();
 builder.Services.AddScoped<IRepositoryInt<IngredientType>, IngredientTypeRepository>();
 builder.Services.AddScoped<IngredientRepository>();
 builder.Services.AddScoped<UserIngredientRepository>();
 builder.Services.AddScoped<CategoryRepository>();
+builder.Services.AddScoped<RecipeRepository>();
 
 
 //conection with sql server
