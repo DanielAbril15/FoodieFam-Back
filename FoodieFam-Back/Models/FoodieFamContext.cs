@@ -4,6 +4,8 @@ namespace FoodieFam_Back.Models
 {
     public class FoodieFamContext : DbContext
     {
+        public FoodieFamContext(DbContextOptions<FoodieFamContext> options) : base(options) { }
+
         public DbSet<User> Users { get; set; }
         public DbSet<Recipe> Recipes { get; set; }
         public DbSet<Ingredient> Ingredients { get; set; }
@@ -14,10 +16,6 @@ namespace FoodieFam_Back.Models
         public DbSet<CategoryRecipe> CategoryRecipes { get; set; }
         public DbSet<RecipeIngredient> RecipeIngredients { get; set; }
 
-
-
-        public FoodieFamContext(DbContextOptions<FoodieFamContext> options) : base(options) { }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>(user =>
@@ -27,7 +25,7 @@ namespace FoodieFam_Back.Models
                 user.Property(p => p.LastName).IsRequired().HasMaxLength(150);
                 user.Property(p => p.Email).IsRequired();
                 user.Property(p => p.Password).IsRequired();
-                user.Property(p => p.Role).HasDefaultValue("normal");
+                user.Property(p => p.Role).HasDefaultValue("user");
                 user.Property(p => p.Status).HasDefaultValue(true);
                 user.Property(p => p.IsVerified).HasDefaultValue(false);
                 user.Property(p => p.DateCreated).ValueGeneratedOnAdd();
@@ -65,7 +63,15 @@ namespace FoodieFam_Back.Models
                 recipe.HasOne(p => p.User).WithMany(p => p.Recipes).HasForeignKey(p => p.UserId);
 
             });
+            modelBuilder.Entity<Instruction>(instruction =>
+            {
+                instruction.HasKey(p => p.InstructionId);
+                instruction.Property(p => p.Description).IsRequired();
+                instruction.Property(p => p.Step).IsRequired();
+                instruction.HasOne(p => p.Recipe).WithMany(p => p.Instructions).HasForeignKey(p => p.RecipeId);
+            });
 
+            //TODO -> agregar id unico a las tablas de union 
             modelBuilder.Entity<CategoryRecipe>(cr =>
             {
                 cr.HasKey(p => new { p.CategoryId, p.RecipeId });
@@ -93,15 +99,6 @@ namespace FoodieFam_Back.Models
                 ur.HasOne(p => p.User).WithMany(p => p.UserRecipes).HasForeignKey(p => p.UserId);
                 ur.HasOne(p => p.Recipe).WithMany(p => p.UserRecipes).HasForeignKey(p => p.RecipeId);
             });
-
-            modelBuilder.Entity<Instruction>(instruction =>
-            {
-                instruction.HasKey(p => p.InstructionId);
-                instruction.Property(p => p.Description).IsRequired();
-                instruction.Property(p => p.Step).IsRequired();
-                instruction.HasOne(p => p.Recipe).WithMany(p => p.Instructions).HasForeignKey(p => p.RecipeId);
-            });
-
 
 
         }
