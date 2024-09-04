@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Text;
 using FoodieFam_Back.DTOs.UserDto;
+using BCrypt.Net;
 
 namespace FoodieFam_Back.Services
 {
@@ -16,14 +17,9 @@ namespace FoodieFam_Back.Services
         //Funcion que encripta la password
         private string encryptPass(string pass)
         {
-            SHA256 sha256 = SHA256Managed.Create();
-            ASCIIEncoding encoding = new ASCIIEncoding();
-            byte[] stream = null;
-            StringBuilder sb = new StringBuilder();
-            stream = sha256.ComputeHash(encoding.GetBytes(pass));
-            for (int i = 0; i < stream.Length; i++) sb.AppendFormat("{0:x2}", stream[i]);
-            
-            return sb.ToString();
+
+            string hashPass = BCrypt.Net.BCrypt.HashPassword(pass);            
+            return hashPass;
         }
 
         public UserService(
@@ -85,11 +81,8 @@ namespace FoodieFam_Back.Services
                 Password = encryptPass(userInsertDto.Password),
                 DateCreated = DateTime.UtcNow
             };
-            Console.WriteLine(userInsertDto.Email);
-            Console.WriteLine(user.Email);
+            
             var userExist = await _userRepository.UserExistsByEmailAsync(userInsertDto.Email);
-            Console.WriteLine(userExist);
-
             //valida si el usuario ya fue creado por medio del email pues este debe ser unico
             if (userExist ) {
                 return null;
