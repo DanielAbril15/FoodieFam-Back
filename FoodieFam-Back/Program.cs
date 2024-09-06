@@ -18,6 +18,7 @@ builder.Services.AddScoped<IngredientService>();
 builder.Services.AddScoped<UserIngredientService>();
 builder.Services.AddScoped<CategoryService>();
 builder.Services.AddScoped<RecipeService>();
+builder.Services.AddScoped<AuthService>();
 
 //Repository
 builder.Services.AddScoped<IRepositoryGuid<User>, UserRepository>();
@@ -26,6 +27,7 @@ builder.Services.AddScoped<IngredientRepository>();
 builder.Services.AddScoped<UserIngredientRepository>();
 builder.Services.AddScoped<CategoryRepository>();
 builder.Services.AddScoped<RecipeRepository>();
+builder.Services.AddScoped<UserRepository>();
 
 
 //conection with sql server
