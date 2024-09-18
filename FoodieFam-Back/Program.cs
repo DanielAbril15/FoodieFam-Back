@@ -36,6 +36,16 @@ builder.Services.AddDbContext<FoodieFamContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("FoodieFamConnection"));
 });
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowSpecificOrigins",
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:4200")  // Reemplaza con el origen permitido
+                  .AllowAnyHeader()
+                  .AllowAnyMethod();
+        });
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -45,10 +55,14 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+// Aplicar la política de CORS
+app.UseCors("AllowSpecificOrigins");
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
 app.MapControllers();
+
 
 app.Run();

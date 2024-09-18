@@ -12,15 +12,15 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FoodieFam_Back.Migrations
 {
     [DbContext(typeof(FoodieFamContext))]
-    [Migration("20240110184403_IngredientRelation")]
-    partial class IngredientRelation
+    [Migration("20240918013942_InitDb")]
+    partial class InitDb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.14")
+                .HasAnnotation("ProductVersion", "8.0.6")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -54,7 +54,7 @@ namespace FoodieFam_Back.Migrations
 
                     b.HasIndex("RecipeId");
 
-                    b.ToTable("CategoryRecipe");
+                    b.ToTable("CategoryRecipes");
                 });
 
             modelBuilder.Entity("FoodieFam_Back.Models.Ingredient", b =>
@@ -151,7 +151,6 @@ namespace FoodieFam_Back.Migrations
                         .HasColumnType("int");
 
                     b.Property<Guid?>("UserId")
-                        .IsRequired()
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("RecipeId");
@@ -176,7 +175,7 @@ namespace FoodieFam_Back.Migrations
 
                     b.HasIndex("IngredientId");
 
-                    b.ToTable("RecipeIngredient");
+                    b.ToTable("RecipeIngredients");
                 });
 
             modelBuilder.Entity("FoodieFam_Back.Models.User", b =>
@@ -198,11 +197,6 @@ namespace FoodieFam_Back.Migrations
                         .HasColumnType("bit")
                         .HasDefaultValue(false);
 
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(150)
@@ -216,7 +210,7 @@ namespace FoodieFam_Back.Migrations
                         .IsRequired()
                         .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(max)")
-                        .HasDefaultValue("normal");
+                        .HasDefaultValue("user");
 
                     b.Property<bool>("Status")
                         .ValueGeneratedOnAdd()
@@ -243,7 +237,7 @@ namespace FoodieFam_Back.Migrations
 
                     b.HasIndex("IngredientId");
 
-                    b.ToTable("UserIngredient");
+                    b.ToTable("UserIngredients");
                 });
 
             modelBuilder.Entity("FoodieFam_Back.Models.UserRecipe", b =>
@@ -309,9 +303,7 @@ namespace FoodieFam_Back.Migrations
                 {
                     b.HasOne("FoodieFam_Back.Models.User", "User")
                         .WithMany("Recipes")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId");
 
                     b.Navigation("User");
                 });

@@ -22,7 +22,6 @@ namespace FoodieFam_Back.Models
             {
                 user.HasKey(p => p.UserId);
                 user.Property(p => p.Name).IsRequired().HasMaxLength(150);
-                user.Property(p => p.LastName).IsRequired().HasMaxLength(150);
                 user.Property(p => p.Email).IsRequired();
                 user.Property(p => p.Password).IsRequired();
                 user.Property(p => p.Role).HasDefaultValue("user");

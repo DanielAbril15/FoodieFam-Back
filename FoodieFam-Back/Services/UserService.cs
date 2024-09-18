@@ -37,7 +37,6 @@ namespace FoodieFam_Back.Services
             {
                 UserId = user.UserId,
                 Name = user.Name,
-                LastName = user.LastName,
                 Email = user.Email,
                 Password = user.Password,
                 Role = user.Role,
@@ -58,7 +57,6 @@ namespace FoodieFam_Back.Services
                 {
                     UserId = user.UserId,
                     Name = user.Name,
-                    LastName = user.LastName,
                     Email = user.Email,
                     Password = user.Password,
                     Role = user.Role,
@@ -76,7 +74,6 @@ namespace FoodieFam_Back.Services
             var user = new User
             {
                 Name = userInsertDto.Name,
-                LastName = userInsertDto.LastName,
                 Email = userInsertDto.Email,
                 Password = encryptPass(userInsertDto.Password),
                 DateCreated = DateTime.UtcNow
@@ -99,7 +96,6 @@ namespace FoodieFam_Back.Services
             {
                 UserId = user.UserId,
                 Name = user.Name,
-                LastName = user.LastName,
                 Email = user.Email,
                 Password = user.Password,
                 Role = user.Role,
@@ -118,7 +114,6 @@ namespace FoodieFam_Back.Services
             {
 
                 user.Name = userPutDto.Name;
-                user.LastName = userPutDto.LastName;
                 user.Email = userPutDto.Email;
                 user.Password = userPutDto.Password;
                 _userRepository.Update(user);
@@ -128,7 +123,6 @@ namespace FoodieFam_Back.Services
                 {
                     UserId = user.UserId,
                     Name = user.Name,
-                    LastName = user.LastName,
                     Email = user.Email,
                     Password = user.Password,
                     Role = user.Role,
@@ -150,7 +144,6 @@ namespace FoodieFam_Back.Services
                 {
                     UserId = user.UserId,
                     Name = user.Name,
-                    LastName = user.LastName,
                     Email = user.Email,
                     Password = user.Password,
                     Role = user.Role,
