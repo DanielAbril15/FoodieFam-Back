@@ -16,9 +16,10 @@ namespace FoodieFam_Back.Repository
 
         public async Task<bool> UserExistsByEmailAsync(string email) =>
             await _context.Users.AnyAsync(user => user.Email == email);
-        public async Task<User> GetUserByEmail(string email) =>
+        public async Task<User?> GetUserByEmail(string email) =>
             await _context.Users.FirstOrDefaultAsync(user => user.Email == email);
 
+        //TODO vincular recetas con usuario
         public async Task<User> GetById(Guid id) =>
             await _context.Users.FindAsync(id);
 

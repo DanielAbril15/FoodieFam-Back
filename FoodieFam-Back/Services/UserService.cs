@@ -115,7 +115,7 @@ namespace FoodieFam_Back.Services
 
                 user.Name = userPutDto.Name;
                 user.Email = userPutDto.Email;
-                user.Password = userPutDto.Password;
+                user.Password = encryptPass(userPutDto.Password);
                 _userRepository.Update(user);
                 await _userRepository.Save();
 

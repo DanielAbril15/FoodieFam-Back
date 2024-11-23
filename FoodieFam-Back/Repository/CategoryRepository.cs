@@ -15,7 +15,7 @@ namespace FoodieFam_Back.Repository
         public async Task<IEnumerable<Category>> Get() =>
             await _context.Categories.ToListAsync();
 
-        public async Task<Category> GetCategoryById(int id)=>
+        public async Task<Category?> GetCategoryById(int id)=>
             await _context.Categories.FindAsync(id);
 
         public async Task AddCategoryRecipe(CategoryRecipe categoryRecipe) =>

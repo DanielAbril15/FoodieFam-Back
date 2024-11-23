@@ -2,6 +2,7 @@
 using FoodieFam_Back.DTOs.RecipeDto;
 using FoodieFam_Back.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.Reflection.Metadata.Ecma335;
 
 namespace FoodieFam_Back.Controllers
 {
@@ -15,6 +16,14 @@ namespace FoodieFam_Back.Controllers
         {
             _recipeService = recipeService;
         }
+
+        [HttpGet]
+        public async Task<IEnumerable<RecipeDto>> GetAllRecipes() =>
+            await _recipeService.Get(); 
+
+
+
+
         [HttpGet("{id}")]
         public async Task<ActionResult<RecipeDto>> GetRecipeById(Guid id)
         {

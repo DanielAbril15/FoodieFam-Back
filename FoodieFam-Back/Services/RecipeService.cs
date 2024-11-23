@@ -68,10 +68,21 @@ namespace FoodieFam_Back.Services
         }
 
         // DE MOMENTO NO SE USA
-        //public Task<IEnumerable<RecipeDto>> Get()
-        //{
-        //    throw new NotImplementedException();
-        //}
+        public async Task<IEnumerable<RecipeDto>> Get()
+        {
+            var recipes = await _recipeRepository.GetAllREcipes();
+
+            return recipes.Select(recipe => new RecipeDto {
+                RecipeId=recipe.RecipeId,
+                Name = recipe.Name,
+                Description = recipe.Description,
+                Img = recipe.Img,
+                Time = recipe.Time,
+                Portions= recipe.Portions,
+                Likes= recipe.Likes,
+                UserId= recipe.UserId
+            });
+        }
 
         public async Task<RecipeDto> GetById(Guid id)
         {
@@ -87,8 +98,7 @@ namespace FoodieFam_Back.Services
                     Time = recipe.Time,
                     Portions= recipe.Portions,
                     Likes= recipe.Likes,
-                    UserId= recipe.UserId,
-                    User = recipe.User
+                    UserId= recipe.UserId
                 };
                 return recipeDto;
             }
